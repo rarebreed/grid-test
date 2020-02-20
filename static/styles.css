@@ -1,0 +1,12 @@
+.navbar {
+	list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #8a7d7d;
+}
+
+.navbar li > a {
+	display: block;
+	width: 60px;
+}

@@ -1,0 +1,141 @@
+.navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+
+  width: 100%;
+}
+
+.login {
+  float: right;
+}
+
+.navbar-item {
+  float: left;
+}
+
+.navbar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+  align-content: stretch;
+}
+
+/* Change the link color to #111 (black) on hover */
+.navbar li a:hover {
+  background-color: rgb(87, 86, 141);
+}
+
+head {
+  margin: 0;
+  padding: 0;
+}
+
+.button {
+  border: solid black 2px;
+  border-radius: 8px;
+  background-color: rgb(78, 116, 103);
+  margin: 0 10px;
+}
+
+/**********************************************************************************
+ * Main grid container 
+ * Grid layout
+ */
+.app {
+  display: grid;
+  grid-template-columns: 1fr 6fr 1fr;
+  grid-template-rows: auto minmax(100%, 1fr);
+  /* height: 100%; */
+  height: 96vh;
+}
+
+/*
+ * This will span the whole grid first row
+ */
+.navbar-grid-area {
+  grid-column: 1 / 4;
+  grid-row-start: 1;
+}
+
+.user-sidebar {
+  grid-row-start: 2;
+  background-color: black;
+  overflow: auto;
+}
+
+.chat-input {
+  grid-column: 2 / 3;
+  grid-row: 2;
+  align-self: end;
+}
+
+.extra-sidebar {
+  grid-row-start: 2;
+  grid-column-start: 3;
+  background-color: cadetblue;
+  overflow: auto;
+}
+
+/* End grid layouyt
+ ***********************************************************************************/
+
+.users {
+  /* display: inline; */
+}
+
+.username {
+  color: white;
+  text-decoration: none;
+  list-style: none;
+  text-align: left;
+  padding: 4px;
+}
+
+.user-avatar {
+  text-align: right;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.chat-input input[type=text] {
+  padding: 5px 0;
+  font-size: 17px;
+  border: 1px solid grey;
+  /* float: left; */
+  background: #f1f1f1;
+  width: 85%;
+}
+
+.chat-input button {
+  /* float: right; */
+  padding: 5px 0;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+  width: 15%;
+}
+
+
+.chat-input button:hover {
+  background: #0bda3f;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: stretch;
+}
