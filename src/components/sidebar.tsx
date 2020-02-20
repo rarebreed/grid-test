@@ -7,18 +7,18 @@ export class SideBar extends React.Component {
 		return (
 			<div className="user-sidebar">
 				<ul className="users">
-				  <li><ListItem classStyle="username" name="User 1"/></li>
-				  <li><ListItem classStyle="username" name="User 2"/></li>
-				  <li><ListItem classStyle="username" name="User 3"/></li>
-					<li><ListItem classStyle="username" name="User 4"/></li>
-					<li><ListItem classStyle="username" name="User 1"/></li>
-				  <li><ListItem classStyle="username" name="User 2"/></li>
-				  <li><ListItem classStyle="username" name="User 3"/></li>
-					<li><ListItem classStyle="username" name="User 4"/></li>
-					<li><ListItem classStyle="username" name="User 1"/></li>
-				  <li><ListItem classStyle="username" name="User 2"/></li>
-				  <li><ListItem classStyle="username" name="User 3"/></li>
-					<li><ListItem classStyle="username" name="User 4"/></li>
+				  <ListItem classStyle="username" name="stoner"/>
+				  <ListItem classStyle="username" name="blaZ0r"/>
+				  <ListItem classStyle="username" name="3l!t30n3"/>
+					<ListItem classStyle="username" name="r@Z0r"/>
+					<ListItem classStyle="username" name="User 1"/>
+				  <ListItem classStyle="username" name="User 2"/>
+				  <ListItem classStyle="username" name="User 3"/>
+					<ListItem classStyle="username" name="User 4"/>
+					<ListItem classStyle="username" name="User 1"/>
+				  <ListItem classStyle="username" name="User 2"/>
+				  <ListItem classStyle="username" name="User 3"/>
+					<ListItem classStyle="username" name="User 4"/>
 				</ul>
 			</div>
 		)
