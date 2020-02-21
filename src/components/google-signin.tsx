@@ -85,16 +85,20 @@ class GoogleAuth extends React.Component<PropsFromRedux, LoggedInState> {
 	 */
 	onSignIn = (googleUser: any) => {
 		const profile = googleUser.getBasicProfile();
-		const username = profile.getName();
-		const email = profile.getEmail();
+		const username: string = profile.getName();
+		const email: string = profile.getEmail();
 		const id = profile.getId();
-		const url = profile.getImageUrl();
+		const url: string = profile.getImageUrl();
 
 		console.log(`Name: ${username}\nEmail: ${email}\nId: ${id}\nURL: ${url}`);
 		let alreadyConnected = this.props.connectState.connected;
 
+		// FIXME: Need to sanitize the username, in case there are non-alphanumberic characters
+		// since the username will be passed to /chat/<username>
+
+		logger.log(`Calling USER_LOGIN action with username ${username.replace(/\s+/, "")}`)
 		this.props.setConnectedUsers( alreadyConnected
-																, username
+																, username.replace(/\s+/, "")
 																, this.props.connectState.auth2
 																, USER_LOGIN);
 	}

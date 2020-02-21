@@ -25,6 +25,7 @@ import { ListItem } from "./user";
 class SideBar extends React.Component<PropsFromRedux>  {
 	render() {
 		const connected = Array.from(this.props.connectState.connected);
+	
 		const listItems = connected.map(user => {
 			// const item = <li key={user}>{user}</li>;
 			const item2 = <ListItem classStyle="username" name={ user } />

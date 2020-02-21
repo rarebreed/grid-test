@@ -180,10 +180,15 @@ export const loginReducer = ( previous: LoginReducerState = defaultLoginState
 		case USER_LOGIN:
 			newstate.connected.push(action.username);
 			newstate.loggedIn = true;
+			if (action.username === "") {
+				logger.error("action.username was empty");
+			}
+			newstate.username = action.username;
 			break;
 		case USER_DISCONNECT:
 			newstate.connected = [];
 			newstate.loggedIn = false;
+			newstate.username = ""
 			break;
 		case USER_TEST:
 			newstate.loggedIn = true;
@@ -310,7 +315,6 @@ export const websocketReducer = ( previous: WebSocketState = { socket: null }
 		sockState.socket = action.socket.socket;
 		return sockState;
 	} else {
-		logger.log(`for websocket action: ${JSON.stringify(action.socket)}`);
 		return previous;
 	}
 };

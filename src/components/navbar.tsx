@@ -33,7 +33,7 @@ const logger = console;
  */
 const mapState = (state: State) => {
   return {
-    user: state.login.username,
+    user: state.connectState.username,
     modal: state.modal,
 		loggedIn: state.connectState.loggedIn,
 		auth: state.connectState.auth2,
