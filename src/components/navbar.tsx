@@ -109,7 +109,7 @@ class NavBar extends React.Component<PropsFromRedux> {
         this.props.websocket(null);
       };
     } else {
-      logger.log(`In setupChat: ${JSON.stringify(this.props)}`);
+      logger.log(`In setupChat`, this.props);
     }
 	}
 	

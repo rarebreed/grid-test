@@ -51,11 +51,22 @@ head {
 /**********************************************************************************
  * Main grid container 
  * Grid layout
+ *
+ * 1               2                                              3                  4
+ * +=================================================================================+ 1
+ * |                          NavBar (.navbar-grid-area)                             |
+ * +===============+==============================================+==================+ 2
+ * | .user-sidebar |          .chat-messages                      | .extra-sidebar   |
+ * |               |                                              |                  |
+ * |               |                                              |                  |
+ * |               +==============================================+                  | 3
+ * |               |          .chat-input                         |                  |
+ * +=================================================================================+ 4
  */
 .app {
   display: grid;
   grid-template-columns: 1fr 6fr 1.5fr;
-  grid-template-rows: auto minmax(100%, 1fr);
+  grid-template-rows: auto auto minmax(100%, 1fr);
   /* height: 100%; */
   height: 97vh;
 }
@@ -73,6 +84,7 @@ head {
 
 .user-sidebar {
   grid-row-start: 2;
+  grid-row-end: -1;
   background-color: black;
   overflow: auto;
 }
@@ -83,12 +95,13 @@ head {
 
 h2.user-header {
   margin: 0;
-  padding: 0;
+  padding: 6px 0;
+  text-align: center;
 }
 
 .chat-input {
   grid-column: 2 / 3;
-  grid-row: 2;
+  grid-row: 3 / 4;
   align-self: end;
   position: relative;
   bottom: 0;
@@ -96,10 +109,17 @@ h2.user-header {
 
 .extra-sidebar {
   grid-row-start: 2;
+  grid-row-end: -1;
   grid-column-start: 3;
   background-color: rgb(255, 255, 255);
   overflow: auto;
   border-left: 1px solid;
+}
+
+.chat-messages {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  overflow: auto;
 }
 
 /* End grid layouyt

@@ -4,11 +4,15 @@ import { connect, ConnectedProps } from "react-redux";
 import { NavBarItem } from "../components/navbar-item";
 import { State } from "../state/store";
 import { logger } from "../logger";
-import { createLoginAction } from "../state/action-creators";
+import { createLoginAction
+			 , websocketAction
+			 , webcamCamAction
+			 } from "../state/action-creators";
 import { USER_LOGIN
 			 , USER_DISCONNECT
 			 , AUTH_CREATED
-			 , makeLoginArgs 
+			 , makeLoginArgs, 
+			 WEBCAM_DISABLE
 			 } from "../state/types";
 
 interface GAPI {
@@ -23,14 +27,18 @@ interface LoggedInState {
 }
 
 const mapPropsToState = (state: State) => {
-	logger.log("in google-signin mapPropsToState", state);
+	console.debug("state is: ", state)
 	return {
-		connectState: state.connectState
+		connectState: state.connectState,
+		socket: state.websocket.socket,
+		webcam: state.webcam
 	};
 };
 
 const mapPropsToDispatch = {
-	setConnectedUsers: createLoginAction
+	setConnectedUsers: createLoginAction,
+	setWebsocket: websocketAction,
+	setWebcam: webcamCamAction
 };
 
 const connector = connect(mapPropsToState, mapPropsToDispatch);
@@ -40,7 +48,7 @@ class GoogleAuth extends React.Component<PropsFromRedux, LoggedInState> {
 	componentDidMount() {
 		let wg: WindowGABI = window;
 		if (wg.gapi) {
-			console.log(`gapi is`, wg.gapi)
+			console.debug(`gapi is`, wg.gapi)
 			wg.gapi.load("auth2", () => {
 				let auth2 = wg.gapi.auth2.init({
 					client_id: '261855978313-003phramc3mt34d9gnvt2dmkp69ip4eu.apps.googleusercontent.com',
@@ -90,7 +98,7 @@ class GoogleAuth extends React.Component<PropsFromRedux, LoggedInState> {
 		const id = profile.getId();
 		const url: string = profile.getImageUrl();
 
-		console.log(`Name: ${username}\nEmail: ${email}\nId: ${id}\nURL: ${url}`);
+		console.debug(`Name: ${username}\nEmail: ${email}\nId: ${id}\nURL: ${url}`);
 		let alreadyConnected = this.props.connectState.connected;
 
 		// FIXME: Need to sanitize the username, in case there are non-alphanumberic characters
@@ -104,11 +112,11 @@ class GoogleAuth extends React.Component<PropsFromRedux, LoggedInState> {
 	}
 
 	signIn = () => {
-		console.log("Clicked login");
+		console.debug("Clicked login");
 
 		if (this.props.connectState.auth2 !== null) {
 			this.props.connectState.auth2.signIn()
-			  .then(this.onSignIn)
+				.then(this.onSignIn)
 		} else {
 			console.log("No this.auth2 instance")
 		}
@@ -120,12 +128,23 @@ class GoogleAuth extends React.Component<PropsFromRedux, LoggedInState> {
 			this.props.connectState.auth2.signOut()
 			  .then(() => {
 					console.log("User has been signed out");
+
+					// Setup our login information
 					this.props.setConnectedUsers( 
 						[], 
 						this.props.connectState.username,
 						this.props.connectState.auth2,
 						USER_DISCONNECT
 					);
+
+					// Disconnect the websocket and webcam.  We have to do cleanup here, because the reducer
+					// is supposed to be side-effect free
+					if (this.props.socket) {
+						this.props.socket.close();
+					}
+					this.props.setWebsocket(null);
+
+					this.props.setWebcam({ active: false }, WEBCAM_DISABLE);
 				})
 		}
 	}
