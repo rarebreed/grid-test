@@ -8,6 +8,7 @@ import { reducers } from "./state/store";
 import NavBar from "./components/navbar";
 import SideBar from "./components/sidebar-left";
 import ChatInput from "./components/chat/chat-input";
+import ChatContainer from "./components/chat/chat-container"
 import { SideBarRight } from "./components/sidebar-right";
 
 const store = createStore(reducers);
@@ -18,6 +19,7 @@ class App extends React.Component {
       <div className="app">
         <NavBar />
         <SideBar />
+        <ChatContainer />
         <ChatInput />
         <SideBarRight />
       </div>
